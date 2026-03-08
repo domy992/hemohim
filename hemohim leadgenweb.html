@@ -1,0 +1,594 @@
+<!DOCTYPE html>
+<html lang="cs">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>HemoHIM G – Přírodní doplněk stravy | Atomy</title>
+<meta name="description" content="HemoHIM G je prémiový bylinný doplněk stravy od Atomy. Podpořte svou vitalitu a imunitu přirozeně.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@300;400;500;600&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --orange: #E85C2A;
+    --orange-light: #F5855C;
+    --orange-pale: #FFF0EB;
+    --white: #FFFFFF;
+    --off-white: #FAF9F7;
+    --text: #1A1A1A;
+    --text-light: #7A7A7A;
+    --border: #F0EDE8;
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  html { scroll-behavior: smooth; }
+
+  body {
+    font-family: 'DM Sans', sans-serif;
+    font-weight: 300;
+    color: var(--text);
+    background: var(--white);
+    overflow-x: hidden;
+    -webkit-font-smoothing: antialiased;
+  }
+
+  /* NAV */
+  nav {
+    position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+    display: flex; align-items: center; justify-content: space-between;
+    padding: 18px 24px;
+    background: rgba(255,255,255,0.92);
+    backdrop-filter: blur(12px);
+    border-bottom: 1px solid var(--border);
+  }
+  .nav-logo {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 22px; font-weight: 500; letter-spacing: 0.05em;
+    color: var(--orange); text-decoration: none;
+  }
+  .nav-logo span { color: var(--text); }
+  .nav-cta {
+    background: var(--orange); color: #fff;
+    padding: 10px 22px; border-radius: 50px;
+    font-size: 13px; font-weight: 500; letter-spacing: 0.03em;
+    text-decoration: none; transition: background 0.2s;
+  }
+  .nav-cta:hover { background: var(--orange-light); }
+
+  /* HERO */
+  .hero {
+    min-height: 100svh;
+    display: grid; grid-template-columns: 1fr;
+    align-items: flex-end;
+    padding: 100px 24px 56px;
+    position: relative; overflow: hidden;
+    background: #1a0f08;
+  }
+  .hero-bg {
+    position: absolute; inset: 0;
+    background-image: url('hero-bg.png');
+    background-size: cover;
+    background-position: center 30%;
+    filter: brightness(0.55) saturate(0.9);
+    z-index: 0;
+  }
+  /* gradient overlay – bottom fade so text is always readable */
+  .hero::after {
+    content: '';
+    position: absolute; inset: 0;
+    background: linear-gradient(
+      to bottom,
+      rgba(20,10,5,0.15) 0%,
+      rgba(20,10,5,0.3) 40%,
+      rgba(20,10,5,0.72) 75%,
+      rgba(20,10,5,0.88) 100%
+    );
+    z-index: 1;
+    pointer-events: none;
+  }
+  .hero > div:first-child { position: relative; z-index: 2; }
+  .hero-badge {
+    display: inline-flex; align-items: center; gap: 8px;
+    background: rgba(255,255,255,0.12);
+    backdrop-filter: blur(8px);
+    border: 1px solid rgba(255,255,255,0.25);
+    color: #fff;
+    padding: 7px 16px; border-radius: 50px;
+    font-size: 12px; font-weight: 500; letter-spacing: 0.08em; text-transform: uppercase;
+    margin-bottom: 24px;
+  }
+  .hero-badge::before { content: '●'; font-size: 7px; color: var(--orange-light); }
+  .hero h1 {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: clamp(52px, 12vw, 88px);
+    font-weight: 300; line-height: 0.95;
+    letter-spacing: -0.02em; margin-bottom: 20px;
+    color: #fff;
+  }
+  .hero h1 em { font-style: italic; color: var(--orange-light); }
+  .hero-sub {
+    font-size: 16px; line-height: 1.7; color: rgba(255,255,255,0.72);
+    max-width: 400px; margin-bottom: 36px;
+  }
+  .hero-actions { display: flex; flex-wrap: wrap; gap: 12px; margin-bottom: 48px; }
+  .btn-primary {
+    background: var(--orange); color: #fff;
+    padding: 15px 32px; border-radius: 50px;
+    font-size: 15px; font-weight: 500; text-decoration: none;
+    transition: transform 0.2s, background 0.2s; display: inline-block;
+  }
+  .btn-primary:hover { background: var(--orange-light); transform: translateY(-2px); }
+  .btn-ghost {
+    border: 1.5px solid rgba(255,255,255,0.35); color: #fff;
+    padding: 15px 32px; border-radius: 50px;
+    font-size: 15px; font-weight: 400; text-decoration: none;
+    transition: border-color 0.2s, background 0.2s; display: inline-block;
+    backdrop-filter: blur(6px);
+  }
+  .btn-ghost:hover { border-color: var(--orange-light); background: rgba(255,255,255,0.08); }
+  .hero-img { display: none; }
+  .hero-stats {
+    display: flex; gap: 32px; flex-wrap: wrap;
+    padding-top: 28px; border-top: 1px solid rgba(255,255,255,0.18);
+  }
+  .stat-item { }
+  .stat-num {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 32px; font-weight: 500; color: var(--orange-light); line-height: 1;
+  }
+  .stat-label { font-size: 12px; color: rgba(255,255,255,0.55); margin-top: 4px; }
+
+  /* SECTION SHARED */
+  section { padding: 72px 24px; }
+  .section-label {
+    font-size: 11px; font-weight: 500; letter-spacing: 0.15em; text-transform: uppercase;
+    color: var(--orange); margin-bottom: 12px;
+  }
+  h2 {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: clamp(34px, 7vw, 52px);
+    font-weight: 400; line-height: 1.1; letter-spacing: -0.01em;
+    margin-bottom: 20px;
+  }
+  .lead { font-size: 16px; line-height: 1.75; color: var(--text-light); margin-bottom: 36px; }
+
+  /* INGREDIENTS */
+  .ingredients { background: var(--white); }
+  .ingredient-grid {
+    display: grid; grid-template-columns: 1fr;
+    gap: 2px; border-radius: 20px; overflow: hidden;
+    border: 1px solid var(--border);
+  }
+  .ingredient-card {
+    padding: 28px 24px;
+    background: var(--white);
+    border-bottom: 1px solid var(--border);
+    display: grid; grid-template-columns: auto 1fr; gap: 18px; align-items: start;
+  }
+  .ingredient-card:last-child { border-bottom: none; }
+  .ing-icon {
+    width: 48px; height: 48px; flex-shrink: 0;
+    background: var(--orange-pale); border-radius: 12px;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 22px;
+  }
+  .ing-name {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 20px; font-weight: 500; margin-bottom: 6px;
+  }
+  .ing-desc { font-size: 14px; line-height: 1.65; color: var(--text-light); }
+
+  /* HOW IT WORKS */
+  .how { background: var(--off-white); }
+  .steps { display: flex; flex-direction: column; gap: 24px; }
+  .step {
+    display: grid; grid-template-columns: 48px 1fr; gap: 18px; align-items: start;
+  }
+  .step-num {
+    width: 48px; height: 48px; flex-shrink: 0;
+    background: var(--orange); color: #fff;
+    border-radius: 50%; display: flex; align-items: center; justify-content: center;
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 20px; font-weight: 500;
+  }
+  .step-title { font-size: 16px; font-weight: 500; margin-bottom: 4px; }
+  .step-desc { font-size: 14px; line-height: 1.65; color: var(--text-light); }
+
+  /* CERTIFICATIONS */
+  .certs { background: var(--white); }
+  .cert-grid {
+    display: grid; grid-template-columns: repeat(3, 1fr); gap: 12px;
+  }
+  .cert-item {
+    background: var(--off-white); border-radius: 16px;
+    padding: 20px 16px; text-align: center;
+  }
+  .cert-name {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 18px; font-weight: 500; color: var(--orange); margin-bottom: 4px;
+  }
+  .cert-desc { font-size: 11px; color: var(--text-light); line-height: 1.4; }
+
+  /* NUTRITION */
+  .nutrition { background: var(--off-white); }
+  .nut-table {
+    background: var(--white); border-radius: 20px;
+    overflow: hidden; border: 1px solid var(--border);
+  }
+  .nut-row {
+    display: grid; grid-template-columns: 1fr auto;
+    padding: 16px 24px; border-bottom: 1px solid var(--border);
+    align-items: center;
+  }
+  .nut-row:last-child { border-bottom: none; }
+  .nut-row.header { background: var(--orange); color: #fff; font-weight: 500; font-size: 13px; }
+  .nut-name { font-size: 14px; }
+  .nut-val { font-size: 14px; font-weight: 500; color: var(--orange); }
+  .nut-row.header .nut-val { color: #fff; }
+
+  /* FOR WHOM */
+  .forwho { background: var(--white); }
+  .forwho-grid { display: grid; grid-template-columns: 1fr; gap: 12px; }
+  .forwho-item {
+    display: flex; align-items: center; gap: 16px;
+    padding: 18px 20px; background: var(--off-white); border-radius: 16px;
+  }
+  .forwho-icon {
+    font-size: 26px; flex-shrink: 0;
+    width: 48px; height: 48px; background: var(--orange-pale);
+    border-radius: 12px; display: flex; align-items: center; justify-content: center;
+  }
+  .forwho-text { font-size: 14px; line-height: 1.5; }
+  .forwho-text strong { display: block; font-size: 15px; font-weight: 500; margin-bottom: 2px; }
+
+  /* DOSAGE */
+  .dosage {
+    background: var(--orange); color: #fff;
+    text-align: center; padding: 60px 24px;
+  }
+  .dosage .section-label { color: rgba(255,255,255,0.6); }
+  .dosage h2 { color: #fff; margin-bottom: 16px; }
+  .dosage .lead { color: rgba(255,255,255,0.75); max-width: 340px; margin: 0 auto 32px; }
+  .dosage-visual {
+    display: inline-flex; align-items: center; gap: 20px;
+    background: rgba(255,255,255,0.15); border-radius: 20px; padding: 24px 32px;
+    margin-bottom: 32px;
+  }
+  .dose-circle {
+    width: 72px; height: 72px; border-radius: 50%;
+    background: rgba(255,255,255,0.2); border: 2px solid rgba(255,255,255,0.4);
+    display: flex; flex-direction: column; align-items: center; justify-content: center;
+    font-family: 'Cormorant Garamond', serif;
+  }
+  .dose-num { font-size: 28px; font-weight: 500; line-height: 1; }
+  .dose-label { font-size: 10px; opacity: 0.7; letter-spacing: 0.05em; }
+  .dose-x { font-family: 'Cormorant Garamond', serif; font-size: 24px; opacity: 0.5; }
+
+  /* CTA FINAL */
+  .cta-final { background: var(--off-white); text-align: center; padding: 72px 24px; }
+  .cta-final h2 { margin-bottom: 16px; }
+  .cta-final .lead { max-width: 360px; margin: 0 auto 32px; }
+  .price-tag {
+    display: inline-block;
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 42px; font-weight: 400; color: var(--orange); margin-bottom: 8px;
+  }
+  .price-note { font-size: 12px; color: var(--text-light); margin-bottom: 28px; }
+
+  /* FOOTER */
+  footer {
+    background: var(--text); color: rgba(255,255,255,0.5);
+    padding: 40px 24px; text-align: center; font-size: 13px; line-height: 1.8;
+  }
+  footer a { color: rgba(255,255,255,0.5); text-decoration: none; }
+  footer strong { color: rgba(255,255,255,0.8); }
+
+  /* ANIMATIONS */
+  @keyframes fadeUp {
+    from { opacity: 0; transform: translateY(24px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+  .hero-badge, .hero h1, .hero-sub, .hero-actions, .hero-stats {
+    animation: fadeUp 0.8s ease both;
+  }
+  .hero h1 { animation-delay: 0.1s; }
+  .hero-sub { animation-delay: 0.2s; }
+  .hero-actions { animation-delay: 0.3s; }
+  .hero-stats { animation-delay: 0.4s; }
+
+  /* DESKTOP */
+  @media (min-width: 768px) {
+    nav { padding: 20px 48px; }
+    .hero { padding: 140px 48px 80px; align-items: flex-end; }
+    .hero-bg { background-position: center 25%; }
+    section { padding: 96px 48px; }
+    .ingredient-grid { grid-template-columns: 1fr; }
+    .forwho-grid { grid-template-columns: repeat(2, 1fr); }
+    .cert-grid { grid-template-columns: repeat(6, 1fr); }
+    .dosage { padding: 96px 48px; }
+    .cta-final { padding: 96px 48px; }
+    footer { padding: 48px; }
+  }
+
+  @media (min-width: 1024px) {
+    nav { padding: 20px 80px; }
+    .hero { padding: 160px 80px 100px; }
+    .hero > div:first-child { max-width: 620px; }
+    section { padding: 112px 80px; max-width: 1200px; margin: 0 auto; }
+    .ingredient-grid { grid-template-columns: 1fr; max-width: 680px; }
+    .forwho-grid { grid-template-columns: repeat(3, 1fr); }
+    .dosage, .cta-final { padding: 112px 80px; }
+    footer { padding: 48px 80px; }
+  }
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav>
+  <a href="#" class="nav-logo">HEMO<span>HIM</span></a>
+  <a href="#objednat" class="nav-cta">Objednat</a>
+</nav>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="hero-bg"></div>
+  <div>
+    <div class="hero-badge">Přírodní bylinný extrakt</div>
+    <h1>Energie<br>z <em>přírody</em></h1>
+    <p class="hero-sub">HemoHIM G je prémiovým doplňkem stravy z tradičních bylin. Podpořte svou vitalitu i každodenní pohodu přirozenou cestou.</p>
+    <div class="hero-actions">
+      <a href="#objednat" class="btn-primary">Chci vyzkoušet</a>
+      <a href="#ingredience" class="btn-ghost">Zjistit více</a>
+    </div>
+    <div class="hero-stats">
+      <div class="stat-item">
+        <div class="stat-num">2×</div>
+        <div class="stat-label">denně, 1 sáček</div>
+      </div>
+      <div class="stat-item">
+        <div class="stat-num">60</div>
+        <div class="stat-label">sáčků v balení</div>
+      </div>
+      <div class="stat-item">
+        <div class="stat-num">3+</div>
+        <div class="stat-label">klíčové byliny</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- INGREDIENCE -->
+<section class="ingredients" id="ingredience">
+  <div class="section-label">Složení</div>
+  <h2>Tři klíčové byliny</h2>
+  <p class="lead">Každá rostlina je vybrána pro své tradiční využití a funkční vlastnosti. Kombinace tří bylin tvoří základ HemoHIM G.</p>
+  <div class="ingredient-grid">
+    <div class="ingredient-card">
+      <div class="ing-icon">🌿</div>
+      <div>
+        <div class="ing-name">Angelica sinensis</div>
+        <p class="ing-desc">Tradiční bylina podporující cirkulaci krve a výživu organismu. Kořeny rostliny jsou využívány v tradiční medicíně po staletí pro posílení imunity a celkové vitality.</p>
+      </div>
+    </div>
+    <div class="ingredient-card">
+      <div class="ing-icon">🌱</div>
+      <div>
+        <div class="ing-name">Ligusticum chuanxiong</div>
+        <p class="ing-desc">Bylinná trvalka, jejíž kořeny a stonky se používají pro antibakteriální vlastnosti a podporu krevního oběhu. Pomáhá zmírňovat únavu a napětí.</p>
+      </div>
+    </div>
+    <div class="ingredient-card">
+      <div class="ing-icon">🌸</div>
+      <div>
+        <div class="ing-name">Paeonia lactiflora</div>
+        <p class="ing-desc">Kořeny trvalky z rodu Paeonia jsou tradiční složkou s antibakteriálními účinky. Přispívá k výživě organismu a celkové rovnováze těla.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- HOW IT WORKS -->
+<section class="how" id="jak-to-funguje">
+  <div class="section-label">Jak to funguje</div>
+  <h2>Podpora imunity přirozeně</h2>
+  <p class="lead">Funkční doplňky stravy pomáhají udržovat přirozenou obranyschopnost organismu třemi způsoby.</p>
+  <div class="steps">
+    <div class="step">
+      <div class="step-num">1</div>
+      <div>
+        <div class="step-title">Aktivace imunitních buněk</div>
+        <p class="step-desc">Podpora a regulace funkce imunitních buněk pro lepší reakci organismu na vnější podněty.</p>
+      </div>
+    </div>
+    <div class="step">
+      <div class="step-num">2</div>
+      <div>
+        <div class="step-title">Identifikace škodlivých látek</div>
+        <p class="step-desc">Podpora funkcí, které rozpoznávají a eliminují nežádoucí cizorodé látky nebo abnormálně se měnící buňky.</p>
+      </div>
+    </div>
+    <div class="step">
+      <div class="step-num">3</div>
+      <div>
+        <div class="step-title">Regulace imunitní odpovědi</div>
+        <p class="step-desc">Pomáhá udržovat kvalitu života tím, že přispívá ke snížení nežádoucích imunitních reakcí.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- NUTRITION -->
+<section class="nutrition" id="slozeni">
+  <div class="section-label">Nutriční hodnoty</div>
+  <h2>Na jednu dávku (20 ml)</h2>
+  <p class="lead">Jasné složení bez skrytých látek. Výrobní proces probíhá pod přísnou kontrolou kvality.</p>
+  <div class="nut-table">
+    <div class="nut-row header">
+      <div class="nut-name">Složka</div>
+      <div class="nut-val">Množství</div>
+    </div>
+    <div class="nut-row">
+      <div class="nut-name">Energie</div>
+      <div class="nut-val">22,6 kcal</div>
+    </div>
+    <div class="nut-row">
+      <div class="nut-name">Sacharidy</div>
+      <div class="nut-val">6 g</div>
+    </div>
+    <div class="nut-row">
+      <div class="nut-name">Cukry</div>
+      <div class="nut-val">3 g</div>
+    </div>
+    <div class="nut-row">
+      <div class="nut-name">Chlorogenová kyselina</div>
+      <div class="nut-val">2 mg</div>
+    </div>
+    <div class="nut-row">
+      <div class="nut-name">Paeoniflerin</div>
+      <div class="nut-val">29,5 mg</div>
+    </div>
+    <div class="nut-row">
+      <div class="nut-name">Celkové polyfenoly</div>
+      <div class="nut-val">52,5 mg</div>
+    </div>
+    <div class="nut-row">
+      <div class="nut-name">Polysacharidy</div>
+      <div class="nut-val">5 %</div>
+    </div>
+  </div>
+</section>
+
+<!-- CERTIFICATIONS -->
+<section class="certs" id="certifikace">
+  <div class="section-label">Certifikace</div>
+  <h2>Výroba pod dohledem</h2>
+  <p class="lead">Vyrobeno v zařízení s certifikací GMP. Každá šarže prochází minimálně 3 kontrolami kvality před uvolněním.</p>
+  <div class="cert-grid">
+    <div class="cert-item">
+      <div class="cert-name">KGMP</div>
+      <div class="cert-desc">Korejský standard výroby</div>
+    </div>
+    <div class="cert-item">
+      <div class="cert-name">HACCP</div>
+      <div class="cert-desc">Bezpečnost potravin</div>
+    </div>
+    <div class="cert-item">
+      <div class="cert-name">FSSC</div>
+      <div class="cert-desc">22000</div>
+    </div>
+    <div class="cert-item">
+      <div class="cert-name">ISO</div>
+      <div class="cert-desc">14001</div>
+    </div>
+    <div class="cert-item">
+      <div class="cert-name">ISO</div>
+      <div class="cert-desc">45001</div>
+    </div>
+    <div class="cert-item">
+      <div class="cert-name">TGA</div>
+      <div class="cert-desc">Aust. standard</div>
+    </div>
+  </div>
+</section>
+
+<!-- FOR WHOM -->
+<section class="forwho" id="pro-koho">
+  <div class="section-label">Pro koho</div>
+  <h2>Vhodné pro aktivní život</h2>
+  <p class="lead">HemoHIM G je určen každému, kdo chce podpořit svou přirozenou energii a pohodu.</p>
+  <div class="forwho-grid">
+    <div class="forwho-item">
+      <div class="forwho-icon">👴</div>
+      <div class="forwho-text">
+        <strong>Senioři</strong>
+        Pro podporu přirozené vitality a energie ve vyšším věku
+      </div>
+    </div>
+    <div class="forwho-item">
+      <div class="forwho-icon">💼</div>
+      <div class="forwho-text">
+        <strong>Zaneprázdnění pracovníci</strong>
+        Pro ty, kteří pracují přesčas a potřebují doplnit energii
+      </div>
+    </div>
+    <div class="forwho-item">
+      <div class="forwho-icon">📚</div>
+      <div class="forwho-text">
+        <strong>Studenti</strong>
+        Při fyzické i psychické zátěži způsobené studiem
+      </div>
+    </div>
+    <div class="forwho-item">
+      <div class="forwho-icon">🏃</div>
+      <div class="forwho-text">
+        <strong>Sportovci a aktivní lidé</strong>
+        Pro regeneraci po fyzicky náročném výkonu
+      </div>
+    </div>
+    <div class="forwho-item">
+      <div class="forwho-icon">🚗</div>
+      <div class="forwho-text">
+        <strong>Řidiči na dlouhé trasy</strong>
+        Podpora při sedavém způsobu práce a dlouhé koncentraci
+      </div>
+    </div>
+    <div class="forwho-item">
+      <div class="forwho-icon">🏠</div>
+      <div class="forwho-text">
+        <strong>Domácnosti</strong>
+        Pro každodenní podporu vitality celé rodiny
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- DOSAGE -->
+<section class="dosage" id="davkovani">
+  <div class="section-label">Dávkování</div>
+  <h2>Jednoduché a pohodlné</h2>
+  <p class="lead">Každý den, kdekoliv – HemoHIM G je připraven vždy, když ho potřebujete.</p>
+  <div class="dosage-visual">
+    <div class="dose-circle">
+      <div class="dose-num">2×</div>
+      <div class="dose-label">denně</div>
+    </div>
+    <div class="dose-x">×</div>
+    <div class="dose-circle">
+      <div class="dose-num">1</div>
+      <div class="dose-label">sáček</div>
+    </div>
+    <div class="dose-x">=</div>
+    <div class="dose-circle">
+      <div class="dose-num">40</div>
+      <div class="dose-label">ml/den</div>
+    </div>
+  </div>
+  <p style="font-size:14px; opacity:0.65; max-width:320px; margin:0 auto;">1 balení (60 sáčků) vystačí na 30 dní. Skladujte při teplotě do 30 °C, mimo dosah dětí.</p>
+</section>
+
+<!-- CTA -->
+<section class="cta-final" id="objednat">
+  <div class="section-label">Objednávka</div>
+  <h2>Začněte dnes</h2>
+  <p class="lead">HemoHIM G je dostupný přes Atomy EU. Přihlaste se nebo se registrujte a objednejte za členskou cenu.</p>
+  <div class="price-tag">105 EUR</div>
+  <p class="price-note">60 sáčků × 20 ml &nbsp;·&nbsp; Doprava zdarma při objednávce nad 150 EUR</p>
+  <a href="https://eu.atomy.com/product/790101" target="_blank" class="btn-primary" style="font-size:16px; padding:18px 40px;">Přejít na Atomy EU →</a>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <p><strong>hemohim.cz</strong></p>
+  <p style="margin-top: 8px;">Informační stránka produktu Atomy HemoHIM G</p>
+  <p style="margin-top: 8px;">
+    Výrobce: Kolmar BNH &nbsp;·&nbsp; Distributor: Atomy Europe GmbH, Kölner Str. 12, 65760 Eschborn, Germany
+  </p>
+  <p style="margin-top: 16px; font-size:12px; opacity:0.6;">
+    Tento produkt není určen k diagnostice, léčbě ani prevenci onemocnění. Doplněk stravy.<br>
+    Před užíváním se poraďte s lékařem nebo lékárníkem. Nevhodné pro těhotné a kojící ženy.
+  </p>
+</footer>
+
+</body>
+</html>
