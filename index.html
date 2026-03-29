@@ -427,17 +427,20 @@ h3.ing-name { font-family:'Playfair Display',serif; font-size:21px; font-weight:
 }
 
 /* CONSENT CHECKBOX */
-.form-consent { margin-top: 4px; }
+.form-consent { margin-top: 8px; }
 .consent-label {
   display: flex; gap: 12px; align-items: flex-start;
   font-size: 14px; line-height: 1.5; color: var(--text-mid);
-  cursor: pointer;
+  cursor: pointer; padding: 8px 0;
 }
 .consent-label input[type="checkbox"] {
-  flex-shrink: 0; width: 22px; height: 22px; margin-top: 1px;
+  flex-shrink: 0; width: 24px; height: 24px; min-width: 24px; margin-top: 1px;
   accent-color: var(--orange); cursor: pointer;
 }
 .consent-label a { color: var(--orange); text-decoration: underline; }
+
+/* Scroll target — formulář se zobrazí přímo pod nav */
+.cta-form-wrap { scroll-margin-top: 72px; }
 
 /* COOKIE CONSENT BANNER */
 .cookie-banner {
@@ -537,9 +540,9 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
     <a href="#veda">Věda</a>
     <a href="#bezpecnost">Bezpečnost</a>
     <a href="https://www.atomy-family.cz/hemohim/" rel="noopener" target="_blank">Atomy Family</a>
-    <a href="#objednat">Kontakt</a>
+    <a href="#formular">Kontakt</a>
   </nav>
-  <a href="#objednat" class="nav-cta">Chci vyzkoušet</a>
+  <a href="#formular" class="nav-cta">Chci vyzkoušet</a>
 </nav>
 
 <!-- HERO -->
@@ -558,7 +561,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
       <div class="hstat"><div class="hstat-num">50M+</div><div class="hstat-label">prodáno</div></div>
     </div>
     <div class="hero-btns">
-      <a href="#objednat" class="btn-primary">Chci vyzkoušet</a>
+      <a href="#formular" class="btn-primary">Chci vyzkoušet</a>
       <a href="#veda" class="btn-ghost">Jak to funguje?</a>
     </div>
   </div>
@@ -790,7 +793,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
       </div>
     </div>
     <!-- RIGHT: FORM -->
-    <div class="cta-form-wrap">
+    <div class="cta-form-wrap" id="formular">
       <h3 class="form-title">Formulář pro registraci</h3>
       <form id="leadForm" method="POST" action="https://api.web3forms.com/submit" novalidate>
         <input type="hidden" name="access_key" value="ca507084-ce2b-461c-adf9-4cabdb80a30c">
@@ -842,7 +845,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
 
 <!-- STICKY CTA (mobile) -->
 <div class="sticky-cta" id="stickyCta">
-  <a href="#objednat">Chci vyzkoušet HemoHIM</a>
+  <a href="#formular">Chci vyzkoušet HemoHIM</a>
 </div>
 
 <!-- FOOTER -->
